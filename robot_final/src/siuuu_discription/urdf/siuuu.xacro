@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot name="siuuu" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find siuuu)/urdf/siuuu.gazebo" />
+  
+  <gazebo>
+  <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+    <updateRate>100.0</updateRate>
+    <robotNamespace>/</robotNamespace>
+    <leftFrontJoint>wheel_2j</leftFrontJoint>
+    <rightFrontJoint>wheel_1j</rightFrontJoint>
+    <leftRearJoint>wheel_4j</leftRearJoint>
+    <rightRearJoint>wheel_3j</rightRearJoint>
+    <wheelSeparation>0.47</wheelSeparation>
+    <wheelDiameter>0.22</wheelDiameter>
+    <robotBaseFrame>base_link</robotBaseFrame>
+    <torque>20</torque>
+    <odometryTopic>odom</odometryTopic>
+    <odometryFrame>odom</odometryFrame>
+    <topicName>cmd_vel</topicName>
+    <broadcastTF>true</broadcastTF>
+  </plugin>
+ </gazebo>
+
+<!--  +++++++++++++Chassis Orange color++++++++++++++++          /-->
+
+  <gazebo reference="base_link">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+
+<!--  ++++++++++++++++Left wheel Blue Color+++++++++++++++++++          /-->
+  <gazebo reference="wheel_2">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+<!--  +++++++++++++++Right wheel Blue Color+++++++++++++++++          /-->
+  <gazebo reference="wheel_1">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+
+<!--  ++++++++++++++++++Kinect Plugin+++++++++++++++++++          /-->
+
+<gazebo reference="kinect">
+   <sensor type="depth" name="camera">
+
+       <always_on>1</always_on>
+       <visualize>true</visualize> 
+            
+       <camera>
+            <horizontal_fov>1.047</horizontal_fov>  
+            <image>
+                <width>640</width>
+                <height>480</height>
+                <format>R8G8B8</format>
+            </image>
+
+            <clip>
+                <near>0.1</near>
+                <far>100</far>
+            </clip>
+
+       </camera>
+
+       <plugin name="camera_controller" filename="libgazebo_ros_openni_kinect.so">
+             <alwaysOn>true</alwaysOn>
+             <updateRate>10.0</updateRate>
+             <cameraName>camera</cameraName>
+             <frameName>camera_link</frameName> <!-- Note the frame name!! It is a FAKE rotated frame to adapt the Computer vision  frame 	convention"z axis for front" with the default  xyz "z axis for up" convention"  /-->
+             <imageTopicName>rgb/image_raw</imageTopicName>
+             <depthImageTopicName>depth/image_raw</depthImageTopicName>
+             <pointCloudTopicName>depth/points</pointCloudTopicName>
+             <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>              
+             <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>            
+             <pointCloudCutoff>0.4</pointCloudCutoff>                
+             <hackBaseline>0.07</hackBaseline>
+             <distortionK1>0.0</distortionK1>
+             <distortionK2>0.0</distortionK2>
+             <distortionK3>0.0</distortionK3>
+             <distortionT1>0.0</distortionT1>
+             <distortionT2>0.0</distortionT2>
+             <CxPrime>0.0</CxPrime>
+             <Cx>0.0</Cx>
+             <Cy>0.0</Cy>
+             <focalLength>0.0</focalLength>
+       </plugin>
+
+    </sensor>
+  </gazebo >
+
+  
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.0213881897708757 2.95778790790902E-05 -0.0674239643981674"
+        rpy="0 0 0" />
+      <mass
+        value="2.42827228754286" />
+      <inertia
+        ixx="0.0242526557299587"
+        ixy="8.27832427886363E-06"
+        ixz="-0.00141702408850574"
+        iyy="0.0606743348825709"
+        iyz="1.33386892992659E-07"
+        izz="0.0698947063734473" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://siuuu/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://siuuu/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="wheel_1">
+    <inertial>
+      <origin
+        xyz="-0.0425468968757804 -6.72072647646682E-05 1.1487315967354E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.639543510664578" />
+      <inertia
+        ixx="0.00669129090940825"
+        ixy="-9.94340888589599E-08"
+        ixz="2.59597759590202E-10"
+        iyy="0.00381358467405092"
+        iyz="1.54823222547733E-07"
+        izz="0.00380727301411901" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://siuuu/meshes/wheel_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://siuuu/meshes/wheel_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_j1"
+    type="continuous">
+    <origin
+      xyz="-0.27643 0.26732 -0.1895"
+      rpy="-1.5973 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="wheel_1" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      effort="30"
+      velocity="30" />
+  </joint>
+  <link
+    name="wheel_2">
+    <inertial>
+      <origin
+        xyz="0.0426923465055357 6.65029572797793E-05 -1.50376739367769E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.639543510565583" />
+      <inertia
+        ixx="0.00669129090931611"
+        ixy="9.92801066906996E-08"
+        ixz="-5.53601318361328E-09"
+        iyy="0.00381358330826233"
+        iyz="-1.80523020225126E-07"
+        izz="0.00380727437983389" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://siuuu/meshes/wheel_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://siuuu/meshes/wheel_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_2j"
+    type="continuous">
+    <origin
+      xyz="-0.27643 -0.18208 -0.1895"
+      rpy="1.8891 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="wheel_2" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      effort="30"
+      velocity="30" />
+  </joint>
+  <link
+    name="wheel_3">
+    <inertial>
+      <origin
+        xyz="-0.0425468973930768 -6.65018137678552E-05 1.50376189098633E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.639543494713359" />
+      <inertia
+        ixx="0.0066912908785211"
+        ixy="-9.92941683829293E-08"
+        ixz="5.5365849755924E-09"
+        iyy="0.00381358330483211"
+        iyz="-1.80524588121655E-07"
+        izz="0.00380727434105294" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://siuuu/meshes/wheel_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://siuuu/meshes/wheel_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_3j"
+    type="continuous">
+    <origin
+      xyz="0.27643 0.26732 -0.1895"
+      rpy="-2.6985 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="wheel_3" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      effort="30"
+      velocity="30" />
+  </joint>
+  <link
+    name="wheel_4">
+    <inertial>
+      <origin
+        xyz="0.0426923465059663 6.65029581848886E-05 -1.50376747347636E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.639543510603157" />
+      <inertia
+        ixx="0.00669129090935926"
+        ixy="9.92801180579842E-08"
+        ixz="-5.53599582717548E-09"
+        iyy="0.00381358330827813"
+        iyz="-1.80523026020187E-07"
+        izz="0.00380727437986558" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://siuuu/meshes/wheel_4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://siuuu/meshes/wheel_4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_4j"
+    type="continuous">
+    <origin
+      xyz="0.27643 -0.18208 -0.1895"
+      rpy="-1.7482 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="wheel_4" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      effort="30"
+      velocity="30" />
+  </joint>
+  <link
+    name="base_kinect">
+    <inertial>
+      <origin
+        xyz="-2.74956998477238E-05 -1.02224445637927E-05 0.00435783404519163"
+        rpy="0 0 0" />
+      <mass
+        value="0.0997343633825546" />
+      <inertia
+        ixx="3.78847734262044E-05"
+        ixy="-2.22178771467767E-09"
+        ixz="-2.36162888968645E-08"
+        iyy="5.31334460498543E-05"
+        iyz="-7.09173406972416E-09"
+        izz="8.45460342263265E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://siuuu/meshes/base_kinect.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.494117647058824 0.494117647058824 0.494117647058824 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://siuuu/meshes/base_kinect.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="base_kinect_j"
+    type="fixed">
+    <origin
+      xyz="-0.30725 0 0.015"
+      rpy="3.1416 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="base_kinect" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="kinect">
+    <inertial>
+      <origin
+        xyz="-0.00210747128568234 -5.82684539359724E-05 -0.0294946549240139"
+        rpy="0 0 0" />
+      <mass
+        value="0.558928168654776" />
+      <inertia
+        ixx="0.00302682021867837"
+        ixy="6.72442661270967E-08"
+        ixz="-5.72161921161364E-06"
+        iyy="0.000231770042746414"
+        iyz="9.33402954860675E-07"
+        izz="0.00293326702614384" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://siuuu/meshes/kinect.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.494117647058824 0.494117647058824 0.494117647058824 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://siuuu/meshes/kinect.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="kinect_j"
+    type="fixed">
+    <origin
+      xyz="0 0.026845 -0.039501"
+      rpy="1.5708 1.5708 0" />
+    <parent
+      link="base_kinect" />
+    <child
+      link="kinect" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  	
+  !--  Kinect Optical Link and joints   /-->
+
+<joint name="kinect_optical_joint" type="fixed">
+
+<origin xyz="0 0 0" rpy="0 1.5707 0"/> <!-- To invert the coordinates from image convention (Z is forward) to normal xyz /-->
+<parent link="kinect"/>
+<child link="camera_link"/>
+</joint>
+
+<!--Virtual link to project the images to, and then flip it to us as its joint is flipped  /-->
+<link name="camera_link">
+</link>
+  
+</robot>

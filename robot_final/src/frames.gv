@@ -1,0 +1,21 @@
+digraph G {
+"base_link" -> "wheel_2"[label=" Broadcaster: /robot_state_publisher\nAverage rate: 10.204\nBuffer length: 4.9\nMost recent transform: 1656269087.02\nOldest transform: 1656269082.12\n"];
+"base_footprint" -> "base_link"[label=" Broadcaster: /tf_footprint_base\nAverage rate: 25.118\nBuffer length: 4.937\nMost recent transform: 1656269087.116\nOldest transform: 1656269082.179\n"];
+"base_link" -> "wheel_3"[label=" Broadcaster: /robot_state_publisher\nAverage rate: 10.204\nBuffer length: 4.9\nMost recent transform: 1656269087.02\nOldest transform: 1656269082.12\n"];
+"base_link" -> "wheel_4"[label=" Broadcaster: /robot_state_publisher\nAverage rate: 10.204\nBuffer length: 4.9\nMost recent transform: 1656269087.02\nOldest transform: 1656269082.12\n"];
+"base_link" -> "wheel_1"[label=" Broadcaster: /robot_state_publisher\nAverage rate: 10.204\nBuffer length: 4.9\nMost recent transform: 1656269087.02\nOldest transform: 1656269082.12\n"];
+"base_link" -> "base_kinect"[label=" Broadcaster: /robot_state_publisher\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"base_kinect" -> "kinect"[label=" Broadcaster: /robot_state_publisher\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"kinect" -> "camera_link"[label=" Broadcaster: /robot_state_publisher\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"camera_link" -> "camera_depth_frame"[label=" Broadcaster: /camera_base_link\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"map" -> "odom"[label=" Broadcaster: /amcl\nAverage rate: 30.166\nBuffer length: 4.906\nMost recent transform: 1656269087.121\nOldest transform: 1656269082.215\n"];
+"odom" -> "base_footprint"[label=" Broadcaster: /odom_pub\nAverage rate: 10.208\nBuffer length: 4.8\nMost recent transform: 1656269087.022\nOldest transform: 1656269082.222\n"];
+"camera_depth_frame" -> "camera_depth_optical_frame"[label=" Broadcaster: /camera_base_link2\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"camera_link" -> "camera_rgb_frame"[label=" Broadcaster: /camera_base_link1\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"camera_rgb_frame" -> "camera_rgb_optical_frame"[label=" Broadcaster: /camera_base_link3\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"base_link" -> "metal_detector"[label=" Broadcaster: /M_detect\nAverage rate: 25.12\nBuffer length: 4.936\nMost recent transform: 1656269087.144\nOldest transform: 1656269082.208\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1656269087.1806645"[ shape=plaintext ] ;
+}->"map";
+}
